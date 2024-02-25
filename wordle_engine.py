@@ -55,29 +55,45 @@ def format_guess(target, guess):
                   but in a different location.
         * RED:    The letter does not appear in the target word
         Also, the string should end with wordle_colors.ENDC """
+    # new_word = ""
+    # for letter in guess:
+    #     if letter in new_word:
+    #         try:
+    #             new_target = target[(target.index(letter)):]
+    #             new_guess = guess[(guess.index(letter)):]
+    #             if letter in new_target:
+    #                 if new_guess.index(letter) == new_target.index(letter):
+    #                     new_word += f"{wordle_colors.GREEN}{letter}{wordle_colors.ENDC}"
+    #                 else:
+    #                     new_word += f"{wordle_colors.YELLOW}{letter}{wordle_colors.ENDC}"
+    #             else:
+    #                 new_word += f"{wordle_colors.RED}{letter}{wordle_colors.ENDC}"
+    #         except ValueError:
+    #             new_word += f"{wordle_colors.RED}{letter}{wordle_colors.ENDC}"
+    #     elif letter in target:
+    #         if guess.index(letter) == target.index(letter):
+    #             new_word += f"{wordle_colors.GREEN}{letter}{wordle_colors.ENDC}"
+    #         else:
+    #             new_word += f"{wordle_colors.YELLOW}{letter}{wordle_colors.ENDC}"
+    #     else:
+    #         new_word += f"{wordle_colors.RED}{letter}{wordle_colors.ENDC}"
+    # return new_word
+
     new_word = ""
+    # loop through each letter in guess
     for letter in guess:
-        if letter in new_word:
-            try:
-                new_target = target[(target.index(letter)):]
-                new_guess = guess[(guess.index(letter)):]
-                if letter in new_target:
-                    if new_guess.index(letter) == new_target.index(letter):
-                        new_word += f"{wordle_colors.GREEN}{letter}{wordle_colors.ENDC}"
-                    else:
-                        new_word += f"{wordle_colors.YELLOW}{letter}{wordle_colors.ENDC}"
-                else:
-                    new_word += f"{wordle_colors.RED}{letter}{wordle_colors.ENDC}"
-            except ValueError:
-                new_word += f"{wordle_colors.RED}{letter}{wordle_colors.ENDC}"
-        elif letter in target:
+        # if the letter appears in the targeted word, check ehere it is
+        if letter in target:
+            # if the letter is in the right spot, ake it green
             if guess.index(letter) == target.index(letter):
-                new_word += f"{wordle_colors.GREEN}{letter}{wordle_colors.ENDC}"
+                new_word += f"{wordle_colors.GREEN}{letter}"
+            # if the letter is in the wrong spot, make it yellow
             else:
-                new_word += f"{wordle_colors.YELLOW}{letter}{wordle_colors.ENDC}"
+                new_word += f"{wordle_colors.YELLOW}{letter}"
+        # if the letter does not appear at all, make it red
         else:
-            new_word += f"{wordle_colors.RED}{letter}{wordle_colors.ENDC}"
-    return new_word
+            new_word += f"{wordle_colors.RED}{letter}"
+    return new_word + wordle_colors.ENDC
 
 def update_letter_status(letter_status, target, guess):
     """ Update the letter status dictionary to show which letters
@@ -112,14 +128,3 @@ def format_letters(alphabet_dict):
     for letter in alphabet_dict:
         new_alpha += alphabet_dict[letter] + letter
     return new_alpha + wordle_colors.ENDC  # return the new alphabet
-
-
-
-
-
-# letters = create_letter_status()
-# print(letters)
-# update_letter_status(letters, "hello", "steak")
-# for letter in letters:
-#     print(letters[letter] + letter)
-# print('\033[94m' + "a")
