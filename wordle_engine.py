@@ -105,8 +105,6 @@ print(format_letters(letters))
 
 
 
-
-
 # letters = create_letter_status()
 # print(letters)
 # update_letter_status(letters, "hello", "steak")
