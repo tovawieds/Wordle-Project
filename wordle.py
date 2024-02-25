@@ -24,7 +24,8 @@ if len(sys.argv) >= 2:
     target = sys.argv[1]
 else:
     # TODO choose a random word from valid_words
-    target = random.choice(list(valid_words))  # <== change this
+    used_words = wordle_engine.load_words("shuffled_real_wordles.txt")
+    target = random.choice(list(used_words))  # <== change this
 #########
 # # choose a word at random from the list of words
 # used_words = wordle_engine.load_words("shuffled_real_wordlist.txt")
@@ -40,6 +41,37 @@ else:
 #   * Print a message at the end of the game indicating whether the player won or lost.
 #      * If the player wins, display the entire sequence of guesses as part of the final message.
 
-all_letters = wordle_engine.create_letter_status()
-for i in range(5):
+guessed_words = []  # list of the user's guesses
+# function to add the user's guess to the list of guesses
+def add_guess(guess):
+    word = wordle_engine.format_guess(target, guess)
+    guessed_words.append(f"{i + 1}. {word}")
+
+# function to deternime if the user won
+def did_win(guess):
+    if guess == target:
+        return True
+    return False
+
+all_letters = wordle_engine.create_letter_status()  # the alphabet formattted into colors
+win = False  # variable to know if the user won
+# loop to ask the user to guess, up tp 6 times
+i = 0
+while i < 5:
+    for word in guessed_words:
+        print(word)
     guess = input(f"Make a guess ({wordle_engine.format_letters(all_letters)}): ")
+    if len(guess) != 5:
+        print("Not a valid word")
+    else:
+        add_guess(guess)
+        if did_win(guess):
+            for word in guessed_words:
+                print(word)
+            print("You win!")
+            win = True
+            break
+        i += 1
+        wordle_engine.update_letter_status(all_letters, target, guess)
+if not win:
+    print("You loose:( the word was: " + target)

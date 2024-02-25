@@ -57,7 +57,20 @@ def format_guess(target, guess):
         Also, the string should end with wordle_colors.ENDC """
     new_word = ""
     for letter in guess:
-        if letter in target:
+        if letter in new_word:
+            try:
+                new_target = target[(target.index(letter)):]
+                new_guess = guess[(guess.index(letter)):]
+                if letter in new_target:
+                    if new_guess.index(letter) == new_target.index(letter):
+                        new_word += f"{wordle_colors.GREEN}{letter}{wordle_colors.ENDC}"
+                    else:
+                        new_word += f"{wordle_colors.YELLOW}{letter}{wordle_colors.ENDC}"
+                else:
+                    new_word += f"{wordle_colors.RED}{letter}{wordle_colors.ENDC}"
+            except ValueError:
+                new_word += f"{wordle_colors.RED}{letter}{wordle_colors.ENDC}"
+        elif letter in target:
             if guess.index(letter) == target.index(letter):
                 new_word += f"{wordle_colors.GREEN}{letter}{wordle_colors.ENDC}"
             else:
@@ -94,13 +107,12 @@ def format_letters(alphabet_dict):
     """ Generate a string that lists all the letters of the alphabet
         colored according to the rules given in update_letter_status.
         the string should end with wordle_colors.ENDC """
-    new_alpha = ""
+    new_alpha = ""  # variable for teh new alphabet letters
+    # add the letter in the right color to the alphabet
     for letter in alphabet_dict:
         new_alpha += alphabet_dict[letter] + letter
-    return new_alpha
+    return new_alpha + wordle_colors.ENDC  # return the new alphabet
 
-letters = create_letter_status()
-print(format_letters(letters))
 
 
 
