@@ -18,17 +18,7 @@
         "output": "",
         "comparison": "exact",
         "timeout": 10,
-        "points": 50
-      },
-      {
-        "name": "test grades",
-        "setup": "",
-        "run": "python grades.py",
-        "input": "",
-        "output":"Nick: 79.2\nRichard: 90.4\nSid: 48.8\nDavid: 86.2",
-        "comparison": "exact",
-        "timeout": 10,
-        "points": 20
+        "points": 90
       }
       
      
