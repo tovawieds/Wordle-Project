@@ -24,7 +24,12 @@ if len(sys.argv) >= 2:
     target = sys.argv[1]
 else:
     # TODO choose a random word from valid_words
-    target = 'alter'  # <== change this
+    target = random.choice(list(valid_words))  # <== change this
+#########
+# # choose a word at random from the list of words
+# used_words = wordle_engine.load_words("shuffled_real_wordlist.txt")
+# target = random.choice(used_words)
+#########
 
 # TODO Implement the rest of the game.
 # Remember:
@@ -34,3 +39,7 @@ else:
 #   * Please display the entire history of guesses before each prompt.
 #   * Print a message at the end of the game indicating whether the player won or lost.
 #      * If the player wins, display the entire sequence of guesses as part of the final message.
+
+all_letters = wordle_engine.create_letter_status()
+for i in range(5):
+    guess = input(f"Make a guess ({wordle_engine.format_letters(all_letters)}): ")
