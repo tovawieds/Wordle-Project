@@ -61,6 +61,20 @@ def format_guess(target, guess):
                   but in a different location.
         * RED:    The letter does not appear in the target word
         Also, the string should end with wordle_colors.ENDC """
+    new_word = ""  # a variable to store the nre formatted word
+    # loop through each letter in the words and compare them
+    for i in range(5):
+        # if the letters are the same, make it green
+        if guess[i] == target[i]:
+            new_word += wordle_colors.GREEN + guess[i]
+        # if the letterin in the word in another spot, make it yellow
+        elif guess[i] in target:
+            new_word += wordle_colors.YELLOW + guess[i]
+        # if the letter isn't in the word at all, make it red
+        else:
+            new_word += wordle_colors.RED + guess[i]
+    # return the new word, with color back to normal at the end
+    return new_word + wordle_colors.ENDC
     # new_word = ""
     # for letter in guess:
     #     if letter in new_word:
@@ -85,21 +99,21 @@ def format_guess(target, guess):
     #         new_word += f"{wordle_colors.RED}{letter}{wordle_colors.ENDC}"
     # return new_word
 
-    new_word = ""
-    # loop through each letter in guess
-    for letter in guess:
-        # if the letter appears in the targeted word, check ehere it is
-        if letter in target:
-            # if the letter is in the right spot, ake it green
-            if guess.index(letter) == target.index(letter):
-                new_word += f"{wordle_colors.GREEN}{letter}"
-            # if the letter is in the wrong spot, make it yellow
-            else:
-                new_word += f"{wordle_colors.YELLOW}{letter}"
-        # if the letter does not appear at all, make it red
-        else:
-            new_word += f"{wordle_colors.RED}{letter}"
-    return new_word + wordle_colors.ENDC
+    # new_word = ""
+    # # loop through each letter in guess
+    # for letter in guess:
+    #     # if the letter appears in the targeted word, check ehere it is
+    #     if letter in target:
+    #         # if the letter is in the right spot, ake it green
+    #         if guess.index(letter) == target.index(letter):
+    #             new_word += f"{wordle_colors.GREEN}{letter}"
+    #         # if the letter is in the wrong spot, make it yellow
+    #         else:
+    #             new_word += f"{wordle_colors.YELLOW}{letter}"
+    #     # if the letter does not appear at all, make it red
+    #     else:
+    #         new_word += f"{wordle_colors.RED}{letter}"
+    # return new_word + wordle_colors.ENDC
 
 def update_letter_status(letter_status, target, guess):
     """ Update the letter status dictionary to show which letters
@@ -111,19 +125,31 @@ def update_letter_status(letter_status, target, guess):
                   (but not in the correct location)
         * RED:    Letter does  not appear in the target word, but has
                   been used in at least one guess."""
-    # loop through each letter in guess
-    for letter in guess:
-        # if the letter appears in the targeted word, check ehere it is
-        if letter in target:
-            # if the letter is in the right spot, ake it green
-            if guess.index(letter) == target.index(letter):
-                letter_status[letter] = wordle_colors.GREEN
-            # if the letter is in the wrong spot, make it yellow
-            else:
-                letter_status[letter] = wordle_colors.YELLOW
-        # if the letter does not appear at all, make it red
+    # loop through each letter in the words and compare them
+    for i in range(5):
+        # if the letters are the same, make it green
+        if guess[i] == target[i]:
+            letter_status[guess[i]] = wordle_colors.GREEN
+        # if the letterin in the word in another spot, make it yellow
+        elif guess[i] in target:
+            letter_status[guess[i]] = wordle_colors.YELLOW
+        # if the letter isn't in the word at all, make it red
         else:
-            letter_status[letter] = wordle_colors.RED
+            letter_status[guess[i]] = wordle_colors.RED
+
+    # # loop through each letter in guess
+    # for letter in guess:
+    #     # if the letter appears in the targeted word, check ehere it is
+    #     if letter in target:
+    #         # if the letter is in the right spot, ake it green
+    #         if guess.index(letter) == target.index(letter):
+    #             letter_status[letter] = wordle_colors.GREEN
+    #         # if the letter is in the wrong spot, make it yellow
+    #         else:
+    #             letter_status[letter] = wordle_colors.YELLOW
+    #     # if the letter does not appear at all, make it red
+    #     else:
+    #         letter_status[letter] = wordle_colors.RED
 
 def format_letters(alphabet_dict):
     """ Generate a string that lists all the letters of the alphabet
@@ -135,5 +161,4 @@ def format_letters(alphabet_dict):
         new_alpha += alphabet_dict[letter] + letter
     return new_alpha + wordle_colors.ENDC  # return the new alphabet
 
-words = load_words("combined_wordlist.txt")
-print(list(words)[3])
+print(format_guess("melon", "hello"))
