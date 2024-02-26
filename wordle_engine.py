@@ -43,8 +43,13 @@ def load_words(filename: str):
     with open(filename) as file:
         for line in file:
             if line[0] != "#":
+                line.replace("\n", "")
                 words_set.add(line)
     # return the set of words
+    # for line in open(filename):
+    #     li = line.strip()
+    #     if not li.startswith("#"):
+    #         words_set.add(line)
     return words_set
 
 def format_guess(target, guess):
@@ -128,3 +133,6 @@ def format_letters(alphabet_dict):
     for letter in alphabet_dict:
         new_alpha += alphabet_dict[letter] + letter
     return new_alpha + wordle_colors.ENDC  # return the new alphabet
+
+words = load_words("combined_wordlist.txt")
+print(list(words)[3])
