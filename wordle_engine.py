@@ -44,8 +44,7 @@ def load_words(filename: str):
     with open(filename) as file:
         for line in file:
             if line[0] != "#":
-                line.replace("\n", "")
-                words_set.add(line)
+                words_set.add(line.strip())
     # return the set of words
     # for line in open(filename):
     #     li = line.strip()
@@ -161,4 +160,7 @@ def format_letters(alphabet_dict):
         new_alpha += alphabet_dict[letter] + letter
     return new_alpha + wordle_colors.ENDC  # return the new alphabet
 
-print(format_guess("melon", "hello"))
+words = load_words("tests/sample_word_list.txt")
+print(words)
+print("cat" in words)
+print("cat\n" in words)

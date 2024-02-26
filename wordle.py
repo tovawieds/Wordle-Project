@@ -61,7 +61,7 @@ while i < 5:
     for word in guessed_words:
         print(word)
     guess = input(f"Make a guess ({wordle_engine.format_letters(all_letters)}): ")
-    if (guess + "\n") not in valid_words or len(guess) != 5:
+    if guess not in valid_words or len(guess) != 5:
         print("Not a valid word")
     else:
         add_guess(guess)
