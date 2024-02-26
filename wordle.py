@@ -58,20 +58,27 @@ win = False  # variable to know if the user won
 # loop to ask the user to guess, up tp 6 times
 i = 0
 while i < 5:
+    # print the list of guesses
     for word in guessed_words:
         print(word)
+    # ask the user to make a guess
     guess = input(f"Make a guess ({wordle_engine.format_letters(all_letters)}): ")
+    # if the guess is not a valid word, or not 5 letters, invalid and guess again
     if guess not in valid_words or len(guess) != 5:
         print("Not a valid word")
+    # otherwise if it is valid, check if they won
     else:
         add_guess(guess)
+        # if they won, print a list of their words and break out of the loop
         if did_win(guess):
             for word in guessed_words:
                 print(word)
             print("You win!")
             win = True
             break
+        # add 1 to number of guesses
         i += 1
         wordle_engine.update_letter_status(all_letters, target, guess)
+# if the user did not win, print message that they lost, and print out the correct word
 if not win:
     print("You loose:( the word was: " + target)

@@ -40,16 +40,12 @@ def load_words(filename: str):
         """
     # create a set to load the words into
     words_set = set()
-    # open the file, if the line doesn't start with '#', add the word to the set
+    # open the file, if the line doesn't start with '#', strip it and add the word to the set
     with open(filename) as file:
         for line in file:
             if line[0] != "#":
                 words_set.add(line.strip())
-    # return the set of words
-    # for line in open(filename):
-    #     li = line.strip()
-    #     if not li.startswith("#"):
-    #         words_set.add(line)
+    # return the set
     return words_set
 
 def format_guess(target, guess):
@@ -66,7 +62,7 @@ def format_guess(target, guess):
         # if the letters are the same, make it green
         if guess[i] == target[i]:
             new_word += wordle_colors.GREEN + guess[i]
-        # if the letterin in the word in another spot, make it yellow
+        # if the letter in in the word in another spot, make it yellow
         elif guess[i] in target:
             new_word += wordle_colors.YELLOW + guess[i]
         # if the letter isn't in the word at all, make it red
@@ -74,45 +70,6 @@ def format_guess(target, guess):
             new_word += wordle_colors.RED + guess[i]
     # return the new word, with color back to normal at the end
     return new_word + wordle_colors.ENDC
-    # new_word = ""
-    # for letter in guess:
-    #     if letter in new_word:
-    #         try:
-    #             new_target = target[(target.index(letter)):]
-    #             new_guess = guess[(guess.index(letter)):]
-    #             if letter in new_target:
-    #                 if new_guess.index(letter) == new_target.index(letter):
-    #                     new_word += f"{wordle_colors.GREEN}{letter}{wordle_colors.ENDC}"
-    #                 else:
-    #                     new_word += f"{wordle_colors.YELLOW}{letter}{wordle_colors.ENDC}"
-    #             else:
-    #                 new_word += f"{wordle_colors.RED}{letter}{wordle_colors.ENDC}"
-    #         except ValueError:
-    #             new_word += f"{wordle_colors.RED}{letter}{wordle_colors.ENDC}"
-    #     elif letter in target:
-    #         if guess.index(letter) == target.index(letter):
-    #             new_word += f"{wordle_colors.GREEN}{letter}{wordle_colors.ENDC}"
-    #         else:
-    #             new_word += f"{wordle_colors.YELLOW}{letter}{wordle_colors.ENDC}"
-    #     else:
-    #         new_word += f"{wordle_colors.RED}{letter}{wordle_colors.ENDC}"
-    # return new_word
-
-    # new_word = ""
-    # # loop through each letter in guess
-    # for letter in guess:
-    #     # if the letter appears in the targeted word, check ehere it is
-    #     if letter in target:
-    #         # if the letter is in the right spot, ake it green
-    #         if guess.index(letter) == target.index(letter):
-    #             new_word += f"{wordle_colors.GREEN}{letter}"
-    #         # if the letter is in the wrong spot, make it yellow
-    #         else:
-    #             new_word += f"{wordle_colors.YELLOW}{letter}"
-    #     # if the letter does not appear at all, make it red
-    #     else:
-    #         new_word += f"{wordle_colors.RED}{letter}"
-    # return new_word + wordle_colors.ENDC
 
 def update_letter_status(letter_status, target, guess):
     """ Update the letter status dictionary to show which letters
@@ -136,20 +93,6 @@ def update_letter_status(letter_status, target, guess):
         else:
             letter_status[guess[i]] = wordle_colors.RED
 
-    # # loop through each letter in guess
-    # for letter in guess:
-    #     # if the letter appears in the targeted word, check ehere it is
-    #     if letter in target:
-    #         # if the letter is in the right spot, ake it green
-    #         if guess.index(letter) == target.index(letter):
-    #             letter_status[letter] = wordle_colors.GREEN
-    #         # if the letter is in the wrong spot, make it yellow
-    #         else:
-    #             letter_status[letter] = wordle_colors.YELLOW
-    #     # if the letter does not appear at all, make it red
-    #     else:
-    #         letter_status[letter] = wordle_colors.RED
-
 def format_letters(alphabet_dict):
     """ Generate a string that lists all the letters of the alphabet
         colored according to the rules given in update_letter_status.
@@ -159,8 +102,3 @@ def format_letters(alphabet_dict):
     for letter in alphabet_dict:
         new_alpha += alphabet_dict[letter] + letter
     return new_alpha + wordle_colors.ENDC  # return the new alphabet
-
-words = load_words("tests/sample_word_list.txt")
-print(words)
-print("cat" in words)
-print("cat\n" in words)
